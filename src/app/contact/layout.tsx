@@ -1,11 +1,7 @@
+import { LayoutPageProps } from "@/types"
 import Image from "next/image"
 
-interface ContactsPageProps {
-    children: React.ReactNode
-
-}
-
-const ContactsPage = ({ children }: ContactsPageProps) => {
+const ContactsPage = ({ children }: LayoutPageProps) => {
     return (
         <div className=" h-screen px-[204px] bg-ellipse-1 flex flex-col justify-evenly">
             <div className="flex flex-col ">
