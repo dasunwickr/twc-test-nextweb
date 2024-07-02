@@ -1,13 +1,13 @@
 const NewContactsPage = () => {
     return (
-        <div className="flex flex-col justify-evenly h-[400px]">
+        <div className="flex flex-col justify-evenly h-[400px] text-green text-bold">
             <div className="text-4xl font-normal italic" >New Contact</div>
             <div className="flex gap-8">
-                <input type="text" className="flex-1 rounded-full py-2 px-12 text-green-800" />
-                <input type="text" className="flex-1 rounded-full py-2 px-12 text-green-800" />
+                <input type="text" placeholder="fullname" className="flex-1 rounded-full py-2 px-12 text-green-800" />
+                <input type="text" placeholder="email" className="flex-1 rounded-full py-2 px-12 text-green-800" />
             </div>
             <div className="flex gap-8">
-                <input type="text" className="flex-1 rounded-full py-2 px-12 text-green-800" />
+                <input type="text" placeholder="phone number" className="flex-1 rounded-full py-2 px-12 text-green-800" />
                 <div className="flex-1 px-12 ">
                     <div className="flex gap-8 items-center">
                         <label className="block text-white text-sm font-bold">Gender:</label>

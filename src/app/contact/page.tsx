@@ -11,14 +11,14 @@ const ContactPage = () => {
                 </div>
             </div>
             <div className="bg-white rounded-2xl mt-8 pt-4 h-72 text-green-700 p-2">
-                <div className="max-h-64 overflow-y-auto">
+                <div className="max-h-64 overflow-y-auto text-green">
                     <table className="w-full">
-                        <thead className="sticky top-0 bg-white">
+                        <thead className="sticky top-0 bg-white italic">
                             <tr>
                                 <th className="text-left"></th>
-                                <th className="text-left">Name</th>
-                                <th className="text-left">Email</th>
-                                <th className="text-left">Phone</th>
+                                <th className="text-left">name</th>
+                                <th className="text-left">email</th>
+                                <th className="text-left">phone</th>
                                 <th className="text-left"></th>
                             </tr>
                         </thead>
