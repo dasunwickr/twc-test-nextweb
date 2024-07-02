@@ -9,6 +9,11 @@ body {
 
 input::placeholder {
   color: #083f46;
+  font-weight: 600;
+}
+
+input {
+  font-weight: 600;
 }
 
 @layer utilities {
