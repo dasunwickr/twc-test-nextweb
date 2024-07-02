@@ -7,6 +7,10 @@ body {
   background: white;
 }
 
+input::placeholder {
+  color: #083f46;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
