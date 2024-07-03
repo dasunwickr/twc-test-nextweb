@@ -1,6 +1,8 @@
 'use client'
 import { AuthCredentials } from "@/types"
-import { axiosInstance } from "@/util/axiosInstance"
+import { axiosInstance, setApiAuthHeader } from "@/util/axiosInstance"
+import { getToken, saveToken } from "@/util/tokenServices"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 
@@ -32,6 +34,9 @@ const registerUser = async ({ email, password }: AuthCredentials) => {
 }
 
 const LoginPage = () => {
+
+    const router = useRouter()
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [openRegister, setOpenRegister] = useState(false)
@@ -46,6 +51,13 @@ const LoginPage = () => {
         const credentials: AuthCredentials = { email, password }
         const data = await loginUser(credentials)
         console.log("Login response data:", data)
+
+        if (data) {
+            setApiAuthHeader(data.accessToken)
+            saveToken(data.accessToken)
+            router.push('/contact')
+        }
+
     }
 
 

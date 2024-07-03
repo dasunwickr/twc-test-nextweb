@@ -1,7 +1,25 @@
-import Image from "next/image";
-import { Icon } from "@iconify/react";
+"use client"
+import { useEffect, useState } from 'react';
+import { axiosInstance } from '@/util/axiosInstance';
+import { Contact } from '@/types';
+import Image from 'next/image';
 
-const ContactPage = () => {
+const ContactPage: React.FC = () => {
+    const [contacts, setContacts] = useState<Contact[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axiosInstance.get<Contact[]>('/contact');
+                setContacts(response.data);
+            } catch (error) {
+                console.error('Error fetching contacts:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <div className="h-full my-8">
             <div className="flex justify-between items-center">
@@ -16,83 +34,31 @@ const ContactPage = () => {
                         <thead className="sticky top-0 bg-white italic">
                             <tr>
                                 <th className="text-left"></th>
-                                <th className="text-left">name</th>
-                                <th className="text-left">email</th>
-                                <th className="text-left">phone</th>
+                                <th className="text-left">Name</th>
+                                <th className="text-left">Email</th>
+                                <th className="text-left">Gender</th>
+                                <th className="text-left">Phone</th>
                                 <th className="text-left"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="flex justify-center items-center">
-                                    <Image src="/female.png" width={50} height={50} alt="avatar" />
-                                </td>
-                                <td className="text-left">John Doe</td>
-                                <td className="text-left">john@example.com</td>
-                                <td className="text-left">(123) 456-7890</td>
-                                <td>
-                                    <div className="flex justify-end p-2 gap-2">
-                                        <Icon icon="mdi:trash-can-outline" width="24" height="24" />
-                                        <Icon icon="mdi:pencil-outline" width="24" height="24" />
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="flex justify-center items-center">
-                                    <Image src="/female.png" width={50} height={50} alt="avatar" />
-                                </td>
-                                <td className="text-left">John Doe</td>
-                                <td className="text-left">john@example.com</td>
-                                <td className="text-left">(123) 456-7890</td>
-                                <td>
-                                    <div className="flex justify-end p-2 gap-2">
-                                        <Icon icon="mdi:trash-can-outline" width="24" height="24" />
-                                        <Icon icon="mdi:pencil-outline" width="24" height="24" />
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="flex justify-center items-center">
-                                    <Image src="/female.png" width={50} height={50} alt="avatar" />
-                                </td>
-                                <td className="text-left">Jane Smith</td>
-                                <td className="text-left">jane@example.com</td>
-                                <td className="text-left">(987) 654-3210</td>
-                                <td>
-                                    <div className="flex justify-end p-2 gap-2">
-                                        <Icon icon="mdi:trash-can-outline" width="24" height="24" />
-                                        <Icon icon="mdi:pencil-outline" width="24" height="24" />
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="flex justify-center items-center">
-                                    <Image src="/female.png" width={50} height={50} alt="avatar" />
-                                </td>
-                                <td className="text-left">Jane Smith</td>
-                                <td className="text-left">jane@example.com</td>
-                                <td className="text-left">(987) 654-3210</td>
-                                <td>
-                                    <div className="flex justify-end p-2 gap-2">
-                                        <Icon icon="mdi:trash-can-outline" width="24" height="24" />
-                                        <Icon icon="mdi:pencil-outline" width="24" height="24" />
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="flex justify-center items-center">
-                                    <Image src="/female.png" width={50} height={50} alt="avatar" />
-                                </td>
-                                <td className="text-left">Jane Smith</td>
-                                <td className="text-left">jane@example.com</td>
-                                <td className="text-left">(987) 654-3210</td>
-                                <td>
-                                    <div className="flex justify-end p-2 gap-2">
-                                        <Icon icon="mdi:trash-can-outline" width="24" height="24" />
-                                        <Icon icon="mdi:pencil-outline" width="24" height="24" />
-                                    </div>
-                                </td>
-                            </tr>
+                            {contacts.map(contact => (
+                                <tr key={contact.id}>
+                                    <td className="text-left">
+                                        <Image
+                                            src={contact.gender === 'male' ? '/male.png' : '/female.png'}
+                                            alt={contact.gender === 'male' ? 'Male' : 'Female'}
+                                            width={50}
+                                            height={50}
+                                        />
+                                    </td>
+                                    <td className="text-left">{contact.name}</td>
+                                    <td className="text-left">{contact.email}</td>
+                                    <td className="text-left">{contact.gender}</td>
+                                    <td className="text-left">{contact.phoneNumber}</td>
+                                    <td className="text-left">{/* Add any actions/buttons for each contact here */}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
