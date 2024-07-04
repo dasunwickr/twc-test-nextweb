@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { axiosInstance } from '@/util/axiosInstance';
 
 const NewContactsPage: React.FC = () => {
-    const [fullname, setFullname] = useState<string>('');
+    const [name, setFullname] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [gender, setGender] = useState<string>('');
@@ -13,7 +13,7 @@ const NewContactsPage: React.FC = () => {
 
         try {
             const response = await axiosInstance.post('/contact', {
-                name: fullname,
+                name: name,
                 email,
                 phoneNumber,
                 gender
@@ -38,7 +38,7 @@ const NewContactsPage: React.FC = () => {
                         type="text"
                         placeholder="Fullname"
                         className="flex-1 rounded-full py-2 px-12 text-green-800"
-                        value={fullname}
+                        value={name}
                         onChange={(e) => setFullname(e.target.value)}
                     />
                     <input
