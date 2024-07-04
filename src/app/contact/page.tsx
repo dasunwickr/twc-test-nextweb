@@ -3,9 +3,14 @@ import { useEffect, useState } from 'react';
 import { axiosInstance } from '@/util/axiosInstance';
 import { Contact } from '@/types';
 import Image from 'next/image';
+import { Icon, InlineIcon } from '@iconify/react';
+import pencilIcon from '@iconify/icons-mdi/pencil';
+import trashCanIcon from '@iconify/icons-mdi/trash-can-outline';
+import { useRouter } from 'next/navigation';
 
 const ContactPage: React.FC = () => {
     const [contacts, setContacts] = useState<Contact[]>([]);
+    const router = useRouter();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,12 +25,27 @@ const ContactPage: React.FC = () => {
         fetchData();
     }, []);
 
+    const handleDelete = async (id: number) => {
+        try {
+            await axiosInstance.delete(`/contact/${id}`);
+            // Filter out the deleted contact from state
+            setContacts(prevContacts => prevContacts.filter(contact => contact.id !== id));
+        } catch (error) {
+            console.error('Error deleting contact:', error);
+        }
+    };
+
+    const handleEdit = (id: number) => {
+        // Implement edit functionality as needed
+        console.log(`Editing contact with id ${id}`);
+    };
+
     return (
         <div className="h-full my-8">
             <div className="flex justify-between items-center">
                 <div className="text-4xl italic font-normal">Contacts</div>
                 <div>
-                    <button className="border-2 text-xl rounded-full px-8 py-2">Add New Contact</button>
+                    <button className="border-2 text-xl rounded-full px-8 py-2" onClick={() => { router.push("/contact/new") }}>Add New Contact</button>
                 </div>
             </div>
             <div className="bg-white rounded-2xl mt-8 pt-4 h-72 text-green-700 p-2">
@@ -56,7 +76,14 @@ const ContactPage: React.FC = () => {
                                     <td className="text-left">{contact.email}</td>
                                     <td className="text-left">{contact.gender}</td>
                                     <td className="text-left">{contact.phoneNumber}</td>
-                                    <td className="text-left">{/* Add any actions/buttons for each contact here */}</td>
+                                    <td className="text-left">
+                                        <button className="mr-2" onClick={() => handleEdit(contact.id)}>
+                                            <Icon icon={pencilIcon} width="24" height="24" />
+                                        </button>
+                                        <button onClick={() => handleDelete(contact.id)}>
+                                            <InlineIcon icon={trashCanIcon} width="24" height="24" />
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
