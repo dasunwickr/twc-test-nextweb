@@ -4,6 +4,7 @@ const NewContactsPage = () => {
             <div className="text-4xl font-normal italic" >New Contact</div>
             <div className="flex gap-8">
                 <input type="text" placeholder="fullname" className="flex-1 rounded-full py-2 px-12 text-green-800" />
+                //test
                 <input type="text" placeholder="email" className="flex-1 rounded-full py-2 px-12 text-green-800" />
             </div>
             <div className="flex gap-8">
