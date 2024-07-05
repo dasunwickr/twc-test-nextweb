@@ -1,14 +1,15 @@
 "use client"
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { axiosInstance } from '@/util/axiosInstance';
-
-//Test Commit
 
 const NewContactsPage: React.FC = () => {
     const [name, setFullname] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [gender, setGender] = useState<string>('');
+
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -26,6 +27,8 @@ const NewContactsPage: React.FC = () => {
             setEmail('');
             setPhoneNumber('');
             setGender('');
+
+            router.push('/contact');
         } catch (error) {
             console.error('Error adding contact:', error);
         }
